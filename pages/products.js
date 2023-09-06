@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const products = (props) => {
@@ -22,7 +23,9 @@ const products = (props) => {
                     <div className='hidden bg-red-800 bg-green-800 bg-purple-800 bg-white bg-yellow-500'></div>
                     <button className={"border-2 border-gray-300 ml-1 rounded-full w-6 h-6 focus:outline-none " + `bg-${item.attributes.color}-800`} ></button>
                     <p className="leading-relaxed text-base">{item.attributes.description}</p>
-                    <button className="my-2 text-white bg-indigo-500 border-0 py-1 md:py-2 px-2 md:px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">Buy now</button>
+                    <Link href={`/product/${item.attributes.slug}`}>
+                      <button className="my-2 text-white bg-indigo-500 border-0 py-1 md:py-2 px-2 md:px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">Buy now</button>
+                    </Link>
                   </div>
                 </div>
               )
