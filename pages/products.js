@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import React from 'react'
 
@@ -15,13 +16,13 @@ const products = (props) => {
           <div className="flex flex-wrap -m-4">
             {props.products.data.map((item, i) => {
               return (
-                <div key={i} className="xl:w-1/4 md:w-1/2 p-4">
+                <div key={item.attributes.slug} className="xl:w-1/4 md:w-1/2 p-4">
                   <div className="bg-gray-100 p-6 rounded-lg">
                     <img className="h-80 rounded m-auto mb-8" src={item.attributes.image.data && `http://localhost:1337${item.attributes.image.data.attributes.url}`} alt="content" />
                     <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">{item.attributes.category}</h3>
                     <h2 className="text-lg text-gray-900 font-medium title-font mb-4">{item.attributes.title}</h2>
-                    <div className='hidden bg-red-800 bg-green-800 bg-purple-800 bg-white bg-yellow-500'></div>
-                    <button className={"border-2 border-gray-300 ml-1 rounded-full w-6 h-6 focus:outline-none " + `bg-${item.attributes.color}-800`} ></button>
+                    <div className='hidden bg-black bg-red-800 bg-green-800 bg-purple-800 bg-white bg-yellow-500'></div>
+                    <button className={"border-2 border-gray-300 ml-1 rounded-full w-6 h-6 focus:outline-none " + `bg-${item.attributes.color}-800`}></button>
                     <p className="leading-relaxed text-base">{item.attributes.description}</p>
                     <Link href={`/product/${item.attributes.slug}`}>
                       <button className="my-2 text-white bg-indigo-500 border-0 py-1 md:py-2 px-2 md:px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">Buy now</button>
@@ -38,7 +39,7 @@ const products = (props) => {
 }
 
 export async function getServerSideProps(context) {
-  let headers = { Authorization: "Bearer 2f5452edb13de1d2613a8c480a8ac88ac98bbeb6d700b85e50c0f45b0cbbd844ef45816e9583af950dacd7285e11b23f863280fd3711a88e9b4f21134026a94719df350f7ac3fc33c7135fa0a471325c93828b8d7b23b22ee94e0e8876612e7d4a3f106b47f11cd2dab9f4c999058ff3cbfd02bc77cfe2c191230b49ce08bd98" }
+  let headers = { Authorization: "Bearer 83946211ae2e473f875770106aa203f39e5cc904cd8dfe7bdabda0e2d4937ba56237edd18d17a45a8c67d5ce70cbdd334c1fdb53afa0a268b8c30d234e172f5b8a5ccbb665c8d7e18ae7d9ec5621ff06dde47c7a16f36aae22b6017c6265766268f73500e77d202a44b595c98fdc86d296fcdf802d9662ac380b5772e5ed28ec" }
   let a = await fetch("http://127.0.0.1:1337/api/products?populate=*", {
     headers: headers
   })
