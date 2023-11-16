@@ -5,12 +5,13 @@ import { useRouter } from 'next/router'
 const Slug = ({ product, addToCart }) => {
     const router = useRouter()
     const { slug } = router.query
-
     return (
         <section className="text-gray-600 body-font overflow-hidden">
             <div className="container px-5 py-24 mx-auto">
                 <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                    <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
+                    <div className='flex justify-center items-center w-full lg:w-auto'>
+                        <img alt="ecommerce" className="rounded" src={`http://localhost:1337${product.attributes.image.data.attributes.formats.thumbnail.url}`} />
+                    </div>
                     <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                         <h2 className="text-sm title-font text-gray-500 tracking-widest">MyShop</h2>
                         <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.attributes.title}</h1>
@@ -81,7 +82,7 @@ const Slug = ({ product, addToCart }) => {
 
 export async function getServerSideProps(context) {
     let headers = { Authorization: "Bearer 83946211ae2e473f875770106aa203f39e5cc904cd8dfe7bdabda0e2d4937ba56237edd18d17a45a8c67d5ce70cbdd334c1fdb53afa0a268b8c30d234e172f5b8a5ccbb665c8d7e18ae7d9ec5621ff06dde47c7a16f36aae22b6017c6265766268f73500e77d202a44b595c98fdc86d296fcdf802d9662ac380b5772e5ed28ec" }
-    let a = await fetch(`http://127.0.0.1:1337/api/products?filters[slug]=${context.query.slug}`, {
+    let a = await fetch(`http://127.0.0.1:1337/api/products?filters[slug]=${context.query.slug}&populate=*`, {
         headers: headers
     })
     let product = await a.json()
