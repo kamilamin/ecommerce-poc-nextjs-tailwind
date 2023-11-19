@@ -1,20 +1,39 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState } from 'react'
 
-const checkout = () => {
+const checkout = ({ cart }) => {
+  const [subTotal, setSubTotal] = useState(0)
+  useEffect(() => {
+    let total = 0
+    for (let index = 0; index < cart.length; index++) {
+      // const element = cart[index];
+      total = total + cart[index][1]
+    }
+    setSubTotal(total)
+  }, [])
   return (
     <div>
       <section className="text-gray-600 body-font relative">
         <div className="container px-5 py-24 mx-auto min-h-screen">
           <div className="flex flex-col w-full mb-12">
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Checkout</h1>
-            <h2>Cart</h2>
-            <div className='cart'>Your cart details</div>
+            <h2 className='text 2xl font-bold'>Cart</h2>
+            <div className='cart'>{cart.length ? `Your cart details are as follows:` : `Your cart is empty!`}</div>
+            <ul className='list-decimal px-8'>
+              {cart.map((item, i) => {
+                return <li key={i}>{item[0]} with a price of {item[1]}</li>
+              })}
+            </ul>
+            <div className='font-bold'>
+            SubTotal: {subTotal}
+            </div>
           </div>
           <div className="">
             <div className="flex flex-wrap -m-2">
               <div className="p-2 w-1/2">
                 <div className="relative">
-                  <label for="name" className="leading-7 text-sm text-gray-600">Name</label>
+                  <label htmlFor="name" className="leading-7 text-sm text-gray-600">Name</label>
                   <input type="text" id="name" name="name" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                 </div>
               </div>
